@@ -75,6 +75,7 @@ const SignUp: React.FC = () => {
                                 placeholder='Password'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                autoComplete='new-password'
                             />
                             <div className='d-flex justify-content-center'>
                                 <Button className='mb-2' variant='outline-info' type='submit'>Sign Up</Button>

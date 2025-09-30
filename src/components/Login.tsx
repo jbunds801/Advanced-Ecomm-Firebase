@@ -1,6 +1,5 @@
 import React, { useState, type FormEvent } from 'react'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase/firebaseConfig'
+import { useAuth } from '../firebase/useAuth'
 import { Form, Button, Card } from 'react-bootstrap'
 import '../styles/Forms.css'
 
@@ -8,15 +7,18 @@ import '../styles/Forms.css'
 const Login: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>("");
+    const { login } = useAuth();
 
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
+        
+        console.log('Login attempt with:', email); 
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            alert('Login Successful!');
+            await login(email, password);
+            console.log('Login successful');
         } catch (err: unknown) {
-            console.error(err);
+            console.error('Login error:', err);
         }
     };
 
@@ -34,8 +36,8 @@ const Login: React.FC = () => {
             >
                 <Card.Body>
                     <Card.Title className='text-center mb-4' >Login</Card.Title>
-                    <Form>
-                        <Form.Group onSubmit={handleLogin} data-bs-theme="dark">
+                    <Form onSubmit={handleLogin}>
+                        <Form.Group data-bs-theme="dark">
                             <Form.Control className='mb-4'
                                 type='email'
                                 placeholder='Email'
@@ -47,6 +49,7 @@ const Login: React.FC = () => {
                                 placeholder='Password'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="new-password"
                             />
                             <div className='d-flex justify-content-center'>
                                 <Button className='mb-2' variant='outline-info' type='submit'>Login</Button>

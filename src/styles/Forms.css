@@ -9,6 +9,11 @@
   -webkit-text-fill-color: #ab53ae !important;
 }
 
+.form-control:not(:placeholder-shown) {
+  background-color: #221f2d;
+  color: #ab53ae;
+}
+
 @media screen and (max-width: 768px) {
   .card {
     max-width: 18rem !important;
