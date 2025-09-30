@@ -1,0 +1,19 @@
+.form-control:focus {
+  border-color: #0dcaf0;
+  box-shadow: 0 0 5px #0dcaf080;
+}
+
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #221f2d inset !important;
+  -webkit-text-fill-color: #ab53ae !important;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 18rem !important;
+    min-width: 18rem !important;
+    max-height: 23rem !important;
+    min-height: 23rem !important;
+  }
+}

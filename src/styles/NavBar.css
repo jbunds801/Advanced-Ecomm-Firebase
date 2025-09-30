@@ -1,0 +1,72 @@
+@font-face {
+  font-family: Scriptina;
+  src: "../assets/fonts/SCRIPTIN.tff";
+}
+
+.nav-bar {
+  background-color: rgba(25, 25, 25, 0.7);
+  border: none;
+  backdrop-filter: blur(1px);
+  box-shadow: 0 20px 16px rgba(25, 25, 25, 0.7);
+}
+
+@media screen and (max-width: 576px) {
+  .nav-bar {
+    background-color: rgba(25, 25, 25, 0.75);
+    border: none;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 20px 16px rgba(25, 25, 25, 0.75);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .nav-brand {
+    font-size: 2.4rem !important;
+  }
+  
+}
+
+.nav-brand {
+  font-family: Scriptina;
+  font-size: 3rem;
+  font-weight: lighter;
+  color: #e314ea;
+}
+
+.nav-brand:hover {
+  font-size: 3.25rem;
+  font-weight: normal;
+  color: #914cff;
+}
+
+.nav-link {
+  color: #8f8f8f;
+  font-weight: lighter;
+}
+
+.nav-link:hover {
+  font-size: larger;
+  font-weight: normal;
+  color: #914cff;
+}
+
+.nav-link:active,
+.nav-brand:active {
+  color: #0dcaf0;
+}
+
+.pulse {
+  animation: pulse 1s ease;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

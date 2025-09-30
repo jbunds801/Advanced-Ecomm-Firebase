@@ -1,0 +1,20 @@
+.all-categories {
+  color: #e314ea;
+  white-space: nowrap;
+}
+
+.categories {
+  white-space: nowrap;
+}
+
+.all-categories:hover,
+.categories:hover {
+  font-size: larger;
+  font-weight: normal;
+  color: #914cff;
+}
+
+.all-categories:active,
+.categories:active {
+  color: #0dcaf0;
+}

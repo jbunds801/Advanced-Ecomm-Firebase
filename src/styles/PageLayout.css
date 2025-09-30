@@ -1,0 +1,26 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #e6e6e6;
+  scrollbar-gutter: stable;
+}
+
+body {
+  background-color: #191919;
+  padding-top: 9rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  font-weight: lighter;
+}
+
