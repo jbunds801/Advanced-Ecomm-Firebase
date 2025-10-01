@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { auth, db } from '../firebase/firebaseConfig';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { useAuth } from '../firebase/useAuth';
 import { Form, Button, Card } from 'react-bootstrap';
 import '../styles/Forms.css'
 
@@ -12,6 +10,7 @@ const SignUp: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
+    const { signUp } = useAuth();
 
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -23,14 +22,7 @@ const SignUp: React.FC = () => {
         }
 
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-            await setDoc(doc(db, "users", user.uid), {
-                firstName,
-                lastName,
-                email: user.email,
-                createdAt: new Date()
-            });
+            await signUp(email, password, firstName, lastName);
         } catch (err: unknown) {
             console.error(err);
         }
@@ -39,7 +31,7 @@ const SignUp: React.FC = () => {
 
     return (
         <>
-            <Card className='my-5 mx-auto'
+            <Card className='form-card my-5 mx-auto'
                 data-bs-theme="dark"
                 style={{
                     maxWidth: '25rem',

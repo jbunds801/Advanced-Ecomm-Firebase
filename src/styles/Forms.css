@@ -6,19 +6,28 @@
 .form-control:-webkit-autofill,
 .form-control:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #221f2d inset !important;
-  -webkit-text-fill-color: #ab53ae !important;
+  -webkit-text-fill-color: #d467d8 !important;
 }
 
 .form-control:not(:placeholder-shown) {
   background-color: #221f2d;
-  color: #ab53ae;
+  color: #d467d8;
 }
 
 @media screen and (max-width: 768px) {
-  .card {
+  .form-card {
     max-width: 18rem !important;
     min-width: 18rem !important;
     max-height: 23rem !important;
     min-height: 23rem !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .form-card-update {
+    max-width: 18rem !important;
+    min-width: 18rem !important;
+    max-height: 27rem !important;
+    min-height: 27rem !important;
   }
 }

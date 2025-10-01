@@ -4,11 +4,13 @@ import '../styles/NavBar.css'
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/store'; // Adjust the path if your store file is elsewhere
 import { useEffect, useState } from 'react';
+import { useAuth } from '../firebase/useAuth';
 
 
 const NavBar: React.FC = () => {
     const cartItems = useSelector((state: RootState) => state.cart.cartItems);
-    const [isPulsing, setIsPulsing] = useState(false);
+    const [isPulsing, setIsPulsing] = useState<boolean>(false);
+    const { currentUser } = useAuth();
 
     const itemCount = cartItems.reduce(
         (total, product) => total + (product.quantity ?? 1),
@@ -41,7 +43,10 @@ const NavBar: React.FC = () => {
                                 <Nav.Link className='nav-link' as={Link} to="/about">
                                     About
                                 </Nav.Link>
-                                <Nav.Link className='nav-link' as={Link} to="/profile">Login/Sign Up</Nav.Link>
+                                {!currentUser ? (
+                                    <Nav.Link className='nav-link' as={Link} to="/profile">Login/Sign Up</Nav.Link>
+                                ) : (<Nav.Link className='nav-link' as={Link} to="/profile">Profile</Nav.Link>
+                                )}
                                 <Nav.Link className='nav-link' as={Link} to="/cart">
                                     Cart
                                     {cartItems.length > 0 && (

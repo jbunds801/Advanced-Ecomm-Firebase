@@ -1,3 +1,11 @@
+:root {
+  /* e314ea */
+  --bs-danger-rgb: 227, 20, 234;
+  /* --bs-danger-text-emphasis: 227, 20, 234;
+  --bs-danger-bg-subtle: 227, 20, 234;
+  --bs-danger-border-subtle: 227, 20, 234; */
+}
+
 html,
 body,
 #root {
@@ -11,6 +19,7 @@ body,
 body {
   background-color: #191919;
   padding-top: 9rem;
+  padding-bottom: 9rem;
 }
 
 h1,
@@ -23,4 +32,3 @@ p,
 span {
   font-weight: lighter;
 }
-

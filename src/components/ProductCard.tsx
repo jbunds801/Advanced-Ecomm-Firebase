@@ -15,8 +15,8 @@ type ProductCardProps = {
 
 const ProductCard: React.FC<ProductCardProps> = ({ products }) => {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-    const [showModal, setShowModal] = useState(false)
-    const [showAddedAlert, setShowAddedAlert] = useState(false)
+    const [showModal, setShowModal] = useState<boolean>(false)
+    const [showAddedAlert, setShowAddedAlert] = useState<boolean>(false)
 
 
     //useQuery to fetch product data and display 

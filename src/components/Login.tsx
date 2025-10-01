@@ -11,21 +11,20 @@ const Login: React.FC = () => {
 
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
-        
-        console.log('Login attempt with:', email); 
+
+        //console.log('Login attempt with:', email);
 
         try {
             await login(email, password);
-            console.log('Login successful');
         } catch (err: unknown) {
-            console.error('Login error:', err);
+            alert('Login error: Please fill out fields');
         }
     };
 
 
     return (
         <>
-            <Card className='my-5 mx-auto'
+            <Card className='form-card my-5 mx-auto'
                 data-bs-theme="dark"
                 style={{
                     maxWidth: '25rem',

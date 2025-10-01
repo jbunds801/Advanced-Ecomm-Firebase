@@ -1,20 +1,22 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { auth } from "./firebaseConfig";
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore'
 import { db } from './firebaseConfig'
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, deleteUser, type User } from "firebase/auth";
 
 
 interface AuthContextType {
     currentUser: User | null;
     loading: boolean;
-    login: (email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
     userName: string | null;
+    userProfile: any | null;
+    login: (email: string, password: string) => Promise<void>;
+    signUp: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
+    logout: () => Promise<void>;
+    deleteProfile: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
@@ -22,6 +24,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [userName, setUserName] = useState<string | null>(null);
+    const [userProfile, setUserProfile] = useState<any | null>(null);
 
 
     useEffect(() => {
@@ -34,11 +37,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
+                    setUserProfile(userData);
                     setUserName(`${userData.firstName || ''} ${userData.lastName || ''}`.trim() || null);
                 } else {
+                    setUserProfile(null);
                     setUserName(null);
                 }
             } else {
+                setUserProfile(null);
                 setUserName(null);
             }
         });
@@ -50,9 +56,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const login = async (email: string, password: string) => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
+            console.log('Login successful in useAuth');
         } catch (err: any) {
-            setError(err.message)
-            console.log(error)
+            setError(err.message);
+            console.error('Login error in useAuth:', err);
+            throw err; // Re-throw so Login component can handle it
+        }
+    }
+
+    const signUp = async (email: string, password: string, firstName: string, lastName: string) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            await setDoc(doc(db, "users", user.uid), {
+                firstName,
+                lastName,
+                email: user.email,
+                createdAt: new Date()
+            });
+            console.log('SignUp successful in useAuth');
+        } catch (err: any) {
+            setError(err.message);
+            console.error('SignUp error in useAuth:', err);
+            throw err; // Re-throw so SignUp component can handle it
         }
     }
 
@@ -64,9 +90,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }
 
+    const deleteProfile = async () => {
+        if (!currentUser) return;
+        try {
+            await deleteDoc(doc(db, 'users', currentUser.uid));
+            await deleteUser(currentUser);
+            alert('User profile deleted successfully.');
+        } catch (err: any) {
+            if (err.code === 'auth/requires-recent-login') {
+                console.error('You need to re-login to delete your account.');
+            } else {
+                console.error('Error deleting user:', err.message);
+            }
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ currentUser, loading, login, logout, userName }}>
-            {!loading && children}
+        <AuthContext.Provider value={{ currentUser, loading, login, logout, signUp, userName, userProfile, deleteProfile }}>
+            {children}
         </AuthContext.Provider>
     );
 };
