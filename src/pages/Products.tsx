@@ -1,6 +1,6 @@
 import React from 'react'
-import ProductCard from '../components/ProductCard';
-import CategorySelector from '../components/CategorySelector'
+import ProductCard from '../components/Products/ProductCard';
+import CategorySelector from '../components/Products/CategorySelector'
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts, fetchProductsByCategory } from '../query/api';
 import '../styles/Products.css'

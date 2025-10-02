@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import type { AppDispatch } from '../redux/store';
-import { addCartItem } from '../redux/cartSlice';
-import type { Product } from '../types/types';
+import type { AppDispatch } from '../../redux/store';
+import { addCartItem } from '../../redux/cartSlice';
+import type { Product } from '../../types/types';
 import { Button } from 'react-bootstrap';
 
 

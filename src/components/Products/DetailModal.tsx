@@ -1,8 +1,8 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import type { Product } from '../types/types'
+import type { Product } from '../../types/types'
 import ReactStars from 'react-rating-stars-component';
-import AddToCartButton from './AddToCartButton';
+import AddToCartButton from '../Cart/AddToCartButton';
 
 
 type DetailModalProps = {

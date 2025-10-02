@@ -1,6 +1,6 @@
 import React from 'react';
 import { signOut } from 'firebase/auth';
-import { auth } from '../firebase/firebaseConfig';
+import { auth } from '../../firebase/firebaseConfig';
 import { Button } from 'react-bootstrap';
 
 
@@ -16,7 +16,7 @@ const Logout: React.FC = () => {
 
 
     return (
-        <Button variant='outline-info' onClick={handleLogout}>Logout</Button>
+        <Button className='text-nowrap' variant='outline-info' onClick={handleLogout}>Logout</Button>
     );
 }
 

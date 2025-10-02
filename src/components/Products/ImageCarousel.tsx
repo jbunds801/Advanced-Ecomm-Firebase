@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Carousel, Container, Row } from "react-bootstrap";
-import { fetchProducts } from "../query/api";
-import type { Product } from '../types/types'
+import { fetchProducts } from "../../query/api";
+import type { Product } from '../../types/types'
 
 
 const ImageCarousel: React.FC = () => {

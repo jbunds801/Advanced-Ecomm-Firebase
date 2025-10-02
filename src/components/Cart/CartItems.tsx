@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import type { AppDispatch } from '../redux/store';
+import type { AppDispatch } from '../../redux/store';
 import { useDispatch } from 'react-redux';
-import type { RootState } from '../redux/store';
+import type { RootState } from '../../redux/store';
 import { Button, Row, Col, Container } from 'react-bootstrap';
-import { decreaseQuantity, increaseQuantity, removeCartItem, clearCart } from '../redux/cartSlice';
+import { decreaseQuantity, increaseQuantity, removeCartItem, clearCart } from '../../redux/cartSlice';
 import CheckoutButton from './CheckoutButton';
 
 const CartItems: React.FC = () => {

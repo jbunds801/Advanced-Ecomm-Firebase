@@ -1,7 +1,7 @@
 import React, { useState, type FormEvent } from 'react'
-import { useAuth } from '../firebase/useAuth'
+import { useAuth } from '../../firebase/useAuth'
 import { Form, Button, Card } from 'react-bootstrap'
-import '../styles/Forms.css'
+import '../../styles/Forms.css'
 
 
 const Login: React.FC = () => {
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
                                 autoComplete="new-password"
                             />
                             <div className='d-flex justify-content-center'>
-                                <Button className='mb-2' variant='outline-info' type='submit'>Login</Button>
+                                <Button className='mb-2 text-nowrap' variant='outline-info' type='submit'>Login</Button>
                             </div>
                         </Form.Group>
                     </Form>

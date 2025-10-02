@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchCategories } from '../query/api';
+import { fetchCategories } from '../../query/api';
 import { useQuery } from '@tanstack/react-query';
 import { Container } from 'react-bootstrap';
 

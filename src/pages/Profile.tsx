@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useAuth } from '../firebase/useAuth';
 import { Row, Col, Container, Button } from 'react-bootstrap';
-import SignUp from '../components/SignUp';
-import Login from '../components/Login';
-import Logout from '../components/Logout';
-import UpdateProfile from '../components/UpdateProfile';
-import DeleteProfile from '../components/DeleteProfile';
+import SignUp from '../components/User/SignUp';
+import Login from '../components/User/Login';
+import Logout from '../components/User/Logout';
+import UpdateProfile from '../components/User/UpdateProfile';
+import DeleteProfile from '../components/User/DeleteProfile';
 
 
 
@@ -38,22 +38,28 @@ const Profile: React.FC = () => {
                     <h1 className='p-4'>Profile</h1>
                     <h4 className='p-4'>Welcome, {userName || "User"}!</h4>
                     <p className='p-4'>What would you like to do?</p>
-                    <Container className="d-flex flex-wrap justify-content-around">
-                        <div className="my-5">
-                            <Button variant="outline-info">View Orders</Button>
-                        </div>
-                        <div className="my-5">
-                            <Logout />
-                        </div>
-                        <div className="my-5 text-center">
-                            <Button variant="outline-info" onClick={() => setShowUpdate(!showUpdate)}>
-                                {showUpdate ? 'Close Update Form' : 'Update Profile'}
-                            </Button>
-                            {showUpdate && <UpdateProfile />}
-                        </div>
-                        <div className="my-5">
-                            <DeleteProfile />
-                        </div>
+                    <Container>
+                        <Row className='justify-content-center text-center'>
+                            <Col className="my-5 flex-wrap" sm={6} md={3}>
+                                <Button className='text-nowrap' variant="outline-info">View Orders</Button>
+                            </Col>
+                            <Col className="my-5" sm={6} md={3}>
+                                <Button className='text-nowrap' variant="outline-info" onClick={() => setShowUpdate(!showUpdate)}>
+                                    {showUpdate ? 'Close Update Form' : 'Update Profile'}
+                                </Button>
+                                <Col className='d-flex justify-content-center'>
+
+                                    {showUpdate && <UpdateProfile />}
+
+                                </Col>
+                            </Col>
+                            <Col className="my-5" sm={6} md={3}>
+                                <Logout />
+                            </Col>
+                            <Col className="my-5" sm={6} md={3}>
+                                <DeleteProfile />
+                            </Col>
+                        </Row>
                     </Container>
                 </div>
             )}

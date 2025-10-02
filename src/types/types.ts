@@ -1,5 +1,5 @@
 export interface Product {
-  id: number;
+  id: string;
   title: string;
   price: number;
   description: string;
@@ -14,6 +14,14 @@ export interface Product {
 
 export interface CartState {
   cartItems: Product[];
+}
+
+export interface User {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role?: string;
 }
 
 //defines types used across components

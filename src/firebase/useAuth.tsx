@@ -2,14 +2,15 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import { auth } from "./firebaseConfig";
 import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore'
 import { db } from './firebaseConfig'
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, deleteUser, type User } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, deleteUser, type User as FirebaseUser } from "firebase/auth";
+import type { User } from '../types/types';
 
 
 interface AuthContextType {
-    currentUser: User | null;
+    currentUser: FirebaseUser | null;
     loading: boolean;
     userName: string | null;
-    userProfile: any | null;
+    userProfile: User | null;
     login: (email: string, password: string) => Promise<void>;
     signUp: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
     logout: () => Promise<void>;
@@ -20,11 +21,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [userName, setUserName] = useState<string | null>(null);
-    const [userProfile, setUserProfile] = useState<any | null>(null);
+    const [userProfile, setUserProfile] = useState<User | null>(null);
 
 
     useEffect(() => {
@@ -36,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 const docRef = doc(db, 'users', user.uid);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
-                    const userData = docSnap.data();
+                    const userData = docSnap.data() as User;
                     setUserProfile(userData);
                     setUserName(`${userData.firstName || ''} ${userData.lastName || ''}`.trim() || null);
                 } else {
@@ -78,7 +79,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch (err: any) {
             setError(err.message);
             console.error('SignUp error in useAuth:', err);
-            throw err; // Re-throw so SignUp component can handle it
+            throw err; 
         }
     }
 
@@ -101,6 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 console.error('You need to re-login to delete your account.');
             } else {
                 console.error('Error deleting user:', err.message);
+                throw err;
             }
         }
     }

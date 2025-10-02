@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../query/api";
-import type { Product } from '../types/types'
+import { fetchProducts } from "../../query/api";
+import type { Product } from '../../types/types'
 import { Button, Card, Col, Row, Container } from 'react-bootstrap'
 import DetailModal from './DetailModal'
-import AddToCartButton from './AddToCartButton';
-import AddedToCartAlert from './AddedToCartAlert';
+import AddToCartButton from '../Cart/AddToCartButton';
+import AddedToCartAlert from '../Cart/AddedToCartAlert';
 //import '../styles/ProductCard.css'
 
 

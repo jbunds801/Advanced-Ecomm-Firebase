@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useAuth } from '../firebase/useAuth';
+import { useAuth } from '../../firebase/useAuth';
 import { Form, Button, Card } from 'react-bootstrap';
-import '../styles/Forms.css'
+import '../../styles/Forms.css'
+
 
 
 const SignUp: React.FC = () => {

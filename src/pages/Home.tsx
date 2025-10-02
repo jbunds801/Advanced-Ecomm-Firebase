@@ -1,5 +1,5 @@
 import React from 'react'
-import ImageCarousel from '../components/ImageCarousel';
+import ImageCarousel from '../components/Products/ImageCarousel';
 
 
 const Home: React.FC = () => {
