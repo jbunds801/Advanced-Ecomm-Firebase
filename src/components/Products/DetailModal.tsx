@@ -25,7 +25,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ product, show, onHide }) => {
                 <Modal.Body>
                     <div className="mx-auto d-flex flex-column align-items-center p-4">
                         <img className='img-fluid mx-auto p-4'
-                            src={product.image}
+                            src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
                             alt={product.title}
                         />
                         <p className='pt-1 fs-5'>Price: ${product.price.toFixed(2)}</p>
@@ -36,7 +36,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ product, show, onHide }) => {
                                 size={30}
                                 isHalf={true}
                                 activeColor="#e314ea"
-                                color="gray" //color of empty star
+                                color="gray"
                                 char="★"
                             />
                         </div>

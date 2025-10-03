@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../../query/api";
 import type { Product } from '../../types/types'
 import { Button, Card, Col, Row, Container } from 'react-bootstrap'
 import DetailModal from './DetailModal'
 import AddToCartButton from '../Cart/AddToCartButton';
 import AddedToCartAlert from '../Cart/AddedToCartAlert';
-//import '../styles/ProductCard.css'
+import { useProducts } from '../../firebase/useProducts';
+
 
 
 type ProductCardProps = {
@@ -18,22 +17,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ products }) => {
     const [showModal, setShowModal] = useState<boolean>(false)
     const [showAddedAlert, setShowAddedAlert] = useState<boolean>(false)
 
+    const { products: contextProducts, loading, error } = useProducts();
 
-    //useQuery to fetch product data and display 
-    const { data, isLoading, error } = useQuery({
-        queryKey: ['products'],
-        queryFn: fetchProducts,
-        enabled: !products // only fetch when there are no products prop
-    })
+    const items = products ?? contextProducts;
 
-    const items: Product[] | undefined = products ?? data;
-
-    if (!products && isLoading) return <div>Loading...</div>;
-    if (!products && error) return <div>Error loading products: {(error as Error).message}</div>;
+    if (!products && loading) return <div>Loading...</div>;
+    if (!products && error) return <div>Error loading products: {error}</div>;
     if (!items || items.length === 0) return <div>No products available</div>;
 
-    //maps over products to display each one in a card
-    //styling added to keep cards the same size and content contained within.
+
     return (
         <>
             <Container>
@@ -53,7 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ products }) => {
                                 >
                                     <div className='d-flex justify-content-center'>
                                         <img style={{ width: '14rem', minHeight: 250, maxHeight: 250, objectFit: 'contain' }}
-                                            src={product.image}
+                                            src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
                                             alt={`image of ${product.title}`}
                                         />
                                     </div>
@@ -64,9 +56,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ products }) => {
                                                 : product.title}
                                         </Card.Title>
                                         <Card.Text style={{ maxHeight: '3rem', overflow: 'hidden' }}>
-                                            {product.description.length > 50
+                                            {product.description && product.description.length > 50
                                                 ? product.description.slice(0, 50) + '...'
-                                                : product.description}
+                                                : product.description || 'No description available'}
                                         </Card.Text>
                                         <div className='d-flex justify-content-between my-4 gap-4 position-absolute bottom-0'>
                                             <Button variant='outline-info' onClick={() => { setSelectedProduct(product); setShowModal(true); }}>Details</Button>

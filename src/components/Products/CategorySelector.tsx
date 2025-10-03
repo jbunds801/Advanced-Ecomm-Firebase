@@ -1,22 +1,19 @@
 import React from 'react';
-import { fetchCategories } from '../../query/api';
-import { useQuery } from '@tanstack/react-query';
 import { Container } from 'react-bootstrap';
-
+import { useProducts } from '../../firebase/useProducts';
 
 type CategorySelectorProps = {
     onSetSelectedCategory: (category: string | null) => void;
 }
 
 const CategorySelector: React.FC<CategorySelectorProps> = ({ onSetSelectedCategory }) => {
+    const { products, error } = useProducts();
 
-    //useQuery to fetch category data
-    const { data: categories } = useQuery({
-        queryKey: ['categories'],
-        queryFn: fetchCategories
-    })
+    const categories = products ? Array.from(new Set(products.map(product => product.category))) : [];
 
-    //function to filter products from the returned data
+    if (!categories && error) console.log(error)
+
+
     return (
         <>
             <Container>

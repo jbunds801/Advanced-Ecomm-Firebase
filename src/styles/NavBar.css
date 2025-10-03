@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
   font-family: Scriptina;
-  src: "../assets/fonts/SCRIPTIN.tff";
-}
+  src: url("../assets/fonts/SCRIPTIN.ttf") format("truetype");
+} */
 
 .nav-bar {
   background-color: rgba(25, 25, 25, 0.7);
@@ -55,7 +55,7 @@
 }
 
 .pulse {
-  animation: pulse 1s ease;
+  animation: pulse 2s ease;
 }
 
 @keyframes pulse {
@@ -63,7 +63,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(3);
+    transform: scale(4);
   }
   100% {
     transform: scale(1);

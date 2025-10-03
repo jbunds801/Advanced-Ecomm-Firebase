@@ -1,11 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { db } from './firebaseConfig';
-import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import type { Product } from '../types/types';
 
 interface ProductsContextType {
     products: Product[];
     loading: boolean;
+    error: string | null;
+    fetchProducts: () => Promise<void>;
     addProduct: (product: Omit<Product, 'id'>) => Promise<void>;
     updateProduct: (id: string, updatedData: Partial<Product>) => Promise<void>;
     deleteProduct: (id: string) => Promise<void>;
@@ -20,14 +22,16 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(collection(db, 'products'), (snapshot) => {
-            const productList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
-            setProducts(productList);
-            setLoading(false);
-        })
 
-        return () => unsubscribe();
+        fetchProducts();
     }, []);
+
+    const fetchProducts = async () => {
+        const snapshot = await getDocs(collection(db, 'products'));
+        const productList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
+        setProducts(productList);
+        setLoading(false);
+    }
 
     const addProduct = async (product: Omit<Product, 'id'>) => {
         try {
@@ -62,7 +66,7 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
 
     return (
-        <ProductsContext.Provider value={{ products, loading, addProduct, updateProduct, deleteProduct }}>
+        <ProductsContext.Provider value={{ products, loading, error, fetchProducts, addProduct, updateProduct, deleteProduct }}>
             {children}
         </ProductsContext.Provider>
     );
@@ -75,4 +79,4 @@ export const useProducts = () => {
 }
 
 //use this in components:
-//const { products, loading, addProduct, updateProduct, deleteProduct } = useProducts();
+//const { products, loading, error, fetchProducts, addProduct, updateProduct, deleteProduct } = useProducts();

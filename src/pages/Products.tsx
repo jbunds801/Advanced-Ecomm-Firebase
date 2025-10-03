@@ -1,34 +1,30 @@
 import React from 'react'
 import ProductCard from '../components/Products/ProductCard';
 import CategorySelector from '../components/Products/CategorySelector'
-import { useQuery } from '@tanstack/react-query';
-import { fetchProducts, fetchProductsByCategory } from '../query/api';
+import { useProducts } from '../firebase/useProducts';
 import '../styles/Products.css'
 
 
 const Products: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
 
-    //uses useQuery to fetch data from the API
-    const { data: products, isLoading } = useQuery({
-        queryKey: ['products'],
-        queryFn: fetchProducts
-    })
+    const { products, loading, error } = useProducts();
+    console.log("Firestore products:", products);
 
-    const { data: productsByCategory } = useQuery({
-        queryKey: ['products', selectedCategory],
-        queryFn: () => fetchProductsByCategory(selectedCategory as string),
-        enabled: !!selectedCategory
-    })
+    if (loading && !products) return <p>Loading...</p>;
+    if (!products && error) return <div>Error loading products: {error}</div>;
 
-    if (isLoading && !products) return <p>Loading...</p>;
+    // Filter products by selected category
+    const filteredProducts = selectedCategory
+        ? products.filter(product => product.category === selectedCategory)
+        : products;
 
     //renders components with the fetched product and category data
     return (
         <>
             <h1 className='text-center p-4'>Find your new favorites!</h1>
             <CategorySelector onSetSelectedCategory={setSelectedCategory} />
-            <ProductCard products={selectedCategory ? productsByCategory : products} />
+            <ProductCard products={filteredProducts} />
         </>
     );
 };

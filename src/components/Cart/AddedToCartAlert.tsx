@@ -10,7 +10,7 @@ const AddedToCartAlert: React.FC<AddedToCartAlertProps> = ({ show, onClose }) =>
 
     useEffect(() => {
         if (!show) return;
-        const t = setTimeout(() => onClose(), 1000);
+        const t = setTimeout(() => onClose(), 2000);
         return () => clearTimeout(t);
     }, [show, onClose]);
 
@@ -22,7 +22,7 @@ const AddedToCartAlert: React.FC<AddedToCartAlertProps> = ({ show, onClose }) =>
                 variant='info'
                 data-bs-theme="dark"
                 onClose={onClose}
-                className="position-fixed start-50 translate-middle-x mt-3"
+                className="position-fixed start-50 translate-middle-x mt-3 d-sm-none d-xs-block"
                 style={{ zIndex: 9999 }}
             >
                 Item Added!

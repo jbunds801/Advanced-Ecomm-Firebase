@@ -1,4 +1,4 @@
-import axios from "axios";
+/* import axios from "axios";
 import type { Product } from "../types/types";
 
 const apiClient = axios.create({
@@ -20,4 +20,4 @@ export async function fetchProductsByCategory(category: string) {
   return result.data as Product[];
 }
 
-//exporting the async functions that get data from the API making it reusable
+//exporting the async functions that get data from the API making it reusable */

@@ -79,7 +79,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch (err: any) {
             setError(err.message);
             console.error('SignUp error in useAuth:', err);
-            throw err; 
+            throw err;
         }
     }
 
@@ -96,7 +96,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             await deleteDoc(doc(db, 'users', currentUser.uid));
             await deleteUser(currentUser);
-            alert('User profile deleted successfully.');
         } catch (err: any) {
             if (err.code === 'auth/requires-recent-login') {
                 console.error('You need to re-login to delete your account.');
