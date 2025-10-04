@@ -17,7 +17,7 @@ const Login: React.FC = () => {
         try {
             await login(email, password);
         } catch (err: unknown) {
-            alert('Login error: Please fill out fields');
+            alert('Login error: Please retry email and password');
         }
     };
 

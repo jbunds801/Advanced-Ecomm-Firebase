@@ -11,6 +11,7 @@ interface AuthContextType {
     loading: boolean;
     userName: string | null;
     userProfile: User | null;
+    role?: string | null;
     login: (email: string, password: string) => Promise<void>;
     signUp: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
     logout: () => Promise<void>;
@@ -26,6 +27,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [error, setError] = useState<string | null>(null);
     const [userName, setUserName] = useState<string | null>(null);
     const [userProfile, setUserProfile] = useState<User | null>(null);
+    const [role, setRole] = useState<string | null>(null);
 
 
     useEffect(() => {
@@ -40,13 +42,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     const userData = docSnap.data() as User;
                     setUserProfile(userData);
                     setUserName(`${userData.firstName || ''} ${userData.lastName || ''}`.trim() || null);
+                    setRole(userData.role || null);
                 } else {
                     setUserProfile(null);
                     setUserName(null);
+                    setRole(null);
                 }
             } else {
                 setUserProfile(null);
                 setUserName(null);
+                setRole(null);
             }
         });
 
@@ -107,7 +112,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     return (
-        <AuthContext.Provider value={{ currentUser, loading, login, logout, signUp, userName, userProfile, deleteProfile }}>
+        <AuthContext.Provider value={{ currentUser, loading, role, userName, userProfile, login, logout, signUp, deleteProfile }}>
             {children}
         </AuthContext.Provider>
     );

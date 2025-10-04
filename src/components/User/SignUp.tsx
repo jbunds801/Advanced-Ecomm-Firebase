@@ -48,7 +48,7 @@ const SignUp: React.FC = () => {
                             <Form.Control className='mb-4'
                                 type='text'
                                 placeholder='First Name'
-                                value={firstName}
+                                value={firstName}   
                                 onChange={(e) => setFirstName(e.target.value)}
                             />
                             <Form.Control className='mb-4'

@@ -9,10 +9,13 @@
   -webkit-text-fill-color: #d467d8 !important;
 }
 
-.form-control:not(:placeholder-shown) {
+.form-control:not(:placeholder-shown),
+.form-select {
   background-color: #221f2d;
   color: #d467d8;
 }
+
+
 
 @media screen and (max-width: 768px) {
   .form-card {
