@@ -4,7 +4,6 @@ import { Form, Button, Card } from 'react-bootstrap';
 import '../../styles/Forms.css'
 
 
-
 const SignUp: React.FC = () => {
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
@@ -48,7 +47,7 @@ const SignUp: React.FC = () => {
                             <Form.Control className='mb-4'
                                 type='text'
                                 placeholder='First Name'
-                                value={firstName}   
+                                value={firstName}
                                 onChange={(e) => setFirstName(e.target.value)}
                             />
                             <Form.Control className='mb-4'

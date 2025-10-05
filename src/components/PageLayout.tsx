@@ -16,7 +16,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
                 <div>
                     <NavBar />
                 </div>
-                <Container className='p-4' style={{ paddingBottom: '5rem' }}>
+                <Container style={{ paddingBottom: '5rem' }}>
                     {children}
                 </Container>
             </div>

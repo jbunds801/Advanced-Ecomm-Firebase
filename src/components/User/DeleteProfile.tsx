@@ -30,7 +30,7 @@ const DeleteProfile: React.FC = () => {
 
     return (
         <>
-            <Button className='' variant={confirmDelete ? 'outline-none text-danger' : 'outline-info'}
+            <Button variant={confirmDelete ? 'outline-none text-danger' : 'outline-info'}
                 onClick={handleDelete}>{confirmDelete ? "Confirm Delete? This action cannot be undone!"
                     : "Delete Profile"}</Button>
         </>

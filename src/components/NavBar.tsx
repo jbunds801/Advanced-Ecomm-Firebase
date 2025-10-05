@@ -17,14 +17,13 @@ const NavBar: React.FC = () => {
         0
     );
 
-    //effect to show cart count in real time next to Cart nav link below with
-    //styling in separate CSS file
     useEffect(() => {
         if (cartItems.length > 0) {
             setIsPulsing(true);
         }
     }, [cartItems]);
 
+    
     return (
         <>
             <div>

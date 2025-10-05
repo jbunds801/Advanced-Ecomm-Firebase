@@ -1,5 +1,4 @@
 import React, { useEffect, type FormEvent } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Form, Button } from 'react-bootstrap';
 import { doc, updateDoc } from 'firebase/firestore';
 import { updateEmail, updatePassword } from 'firebase/auth';
@@ -53,13 +52,9 @@ const UpdateProfile: React.FC = () => {
                 email
             });
             alert('Profile updated successfully!');
-        } catch (error) {
+        } catch (err: any) {
             alert('Error updating profile');
-            if (error instanceof Error) {
-                console.error(error.message);
-            } else {
-                console.error(error);
-            }
+            console.error(err);
         }
     }
 

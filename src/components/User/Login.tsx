@@ -12,8 +12,6 @@ const Login: React.FC = () => {
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
 
-        //console.log('Login attempt with:', email);
-
         try {
             await login(email, password);
         } catch (err: unknown) {

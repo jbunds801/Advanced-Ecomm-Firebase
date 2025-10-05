@@ -1,11 +1,11 @@
 import React from 'react';
 import { useAuth } from '../../firebase/useAuth';
-import AddProduct from './AddProduct';
+import ProductList from './ProductList';
 import { Container } from 'react-bootstrap';
 
 const AdminDashboard: React.FC = () => {
     //const [showUpdate, setShowUpdate] = useState<boolean>(false)
-    const { userName, loading } = useAuth();
+    const { /* userName, */ loading } = useAuth();
 
     if (loading) {
         return <h3>Loading...</h3>
@@ -14,13 +14,11 @@ const AdminDashboard: React.FC = () => {
     return (
         <>
             <div>
-                <h4 className='p-4'>Welcome, {userName || "User"}!</h4>
-                <p className='p-4'>What would you like to do?</p>
+                {/* <h4 className='p-4'>Welcome, {userName || "User"}!</h4> */}
+                <h4 className='p-4'>Manage Products</h4>
                 <Container>
-
-                    <AddProduct />
-
-
+                    <ProductList />
+                    
 
                     {/* <Row className='justify-content-center text-center'>
                         <Col className="my-5 flex-wrap" sm={6} md={3}>

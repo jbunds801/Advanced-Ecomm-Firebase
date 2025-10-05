@@ -7,9 +7,9 @@ import AddedToCartAlert from '../Cart/AddedToCartAlert';
 import { useProducts } from '../../firebase/useProducts';
 
 
-
+ 
 type ProductCardProps = {
-    products?: Product[];
+    products: Product[];
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ products }) => {

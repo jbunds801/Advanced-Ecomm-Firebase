@@ -9,7 +9,6 @@ const Products: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
 
     const { products, loading, error } = useProducts();
-    console.log("Firestore products:", products);
 
     if (loading && !products) return <p>Loading...</p>;
     if (!products && error) return <div>Error loading products: {error}</div>;

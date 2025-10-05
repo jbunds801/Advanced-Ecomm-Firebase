@@ -19,8 +19,8 @@ const Admin: React.FC = () => {
                 </div>
             ) : (
                 <div>
-                    <h1>Access Denied</h1>
-                    <p>You do not have permission to view this page.</p>
+                    <h1 className='p-4'>Access Denied</h1>
+                    <p className='px-4'>You do not have permission to view this page.</p>
                 </div>
             )}
         </>

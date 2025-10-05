@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useProducts } from '../../firebase/useProducts';
 import { Card, Form, Button } from 'react-bootstrap';
 
+
 const AddProduct: React.FC = () => {
     const [title, setTitle] = useState<string>('');
     const [price, setPrice] = useState<string>('');
@@ -22,7 +23,20 @@ const AddProduct: React.FC = () => {
         }
 
         try {
-            await addProduct({ title, price: Number(price), description, category, image, ...(rating && { rating: { rate: rating } }) });
+            await addProduct({
+                title,
+                price: Number(price),
+                description,
+                category,
+                image,
+                ...(rating && { rating: { rate: rating } })
+            });
+            setTitle('');
+            setPrice('');
+            setDescription('');
+            setCategory('');
+            setImage('');
+            setRating(0);
         } catch (err: unknown) {
             console.error(err);
         }
@@ -63,18 +77,16 @@ const AddProduct: React.FC = () => {
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
-                                <Form.Select
-                                    className='mb-4'
-                                    aria-label='Category' //what does this do?
+                                <Form.Select className='mb-4'
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
                                 >
                                     <option value="">Select Category</option>
-                                    <option value="Pedals">Pedals</option>
-                                    <option value="Power Supplies">Power Supplies</option>
-                                    <option value="Microphones">Microphones</option>
-                                    <option value="Pedalboards">Pedalboards</option>
-                                    <option value="Cables">Cables</option>
+                                    <option value="pedals">Pedals</option>
+                                    <option value="power supplies">Power Supplies</option>
+                                    <option value="microphones">Microphones</option>
+                                    <option value="pedalboards">Pedalboards</option>
+                                    <option value="cables">Cables</option>
                                 </Form.Select>
                                 <Form.Control className='mb-4'
                                     type='text'
@@ -86,15 +98,15 @@ const AddProduct: React.FC = () => {
                                     type='number'
                                     min={0}
                                     max={5}
-                                    step=".1"
+                                    step='.1'
                                     placeholder='Rating'
                                     value={rating}
                                     onChange={(e) => setRating(Number(e.target.value))}
                                 />
                                 <div className='d-flex justify-content-center'>
                                     <Button className='mb-2' variant='outline-info' type='submit'>Add Product</Button>
-                                    {error && <p>{error}</p>}
                                 </div>
+                                {error && <p className='text-center mt-2 text-info'>{error}</p>}
                             </Form.Group>
                         </Form>
                     </Card.Body>
