@@ -14,17 +14,20 @@ const UpdateProfile: React.FC = () => {
     const [password, setPassword] = React.useState<string>('');
     const [confirmPassword, setConfirmPassword] = React.useState<string>('');
 
-    const { currentUser, userProfile } = useAuth();
+    const { currentUser, userProfile, fetchUser } = useAuth();
 
     useEffect(() => {
-        if (userProfile) {
+        fetchUser();
+    }, [currentUser, fetchUser]);
+
+    useEffect(() => {
+        if (userProfile && !firstName && !lastName && !email) {
             setFirstName(userProfile.firstName || '');
             setLastName(userProfile.lastName || '');
             setEmail(userProfile.email || '');
-            setPassword('');
-            setConfirmPassword('');
         }
-    }, [userProfile]);
+    }, [userProfile, firstName, lastName, email]);
+
 
     const handleUpdate = async (e: FormEvent) => {
         e.preventDefault();
@@ -51,6 +54,7 @@ const UpdateProfile: React.FC = () => {
                 lastName,
                 email
             });
+            await fetchUser();
             alert('Profile updated successfully!');
         } catch (err: any) {
             alert('Error updating profile');

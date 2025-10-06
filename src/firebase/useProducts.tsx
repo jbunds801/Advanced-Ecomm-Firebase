@@ -26,6 +26,7 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         fetchProducts();
     }, []);
 
+
     const fetchProducts = async () => {
         const snapshot = await getDocs(collection(db, 'products'));
         const productList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));

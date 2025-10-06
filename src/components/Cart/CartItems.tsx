@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { useDispatch } from 'react-redux';
@@ -15,7 +15,8 @@ const CartItems: React.FC = () => {
     const totalItems = cartItems.reduce((sum, product) => sum + (product.quantity ?? 1), 0);
     const totalPrice = cartItems.reduce((sum, product) => sum + product.price * (product.quantity ?? 1), 0);
 
-    React.useEffect(() => {
+    
+    useEffect(() => {
         if (cartItems.length > 0 && checkoutComplete) setCheckoutComplete(false);
     }, [cartItems.length, checkoutComplete]);
 

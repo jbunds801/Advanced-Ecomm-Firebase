@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { auth } from "./firebaseConfig";
-import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore'
+import { doc, getDoc, getDocs, setDoc, deleteDoc, collection } from 'firebase/firestore'
 import { db } from './firebaseConfig'
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, deleteUser, type User as FirebaseUser } from "firebase/auth";
 import type { User } from '../types/types';
@@ -12,6 +12,8 @@ interface AuthContextType {
     userName: string | null;
     userProfile: User | null;
     role?: string | null;
+    fetchUser: () => Promise<void>;
+    fetchUsers: () => Promise<User[]>;
     login: (email: string, password: string) => Promise<void>;
     signUp: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
     logout: () => Promise<void>;
@@ -33,7 +35,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setCurrentUser(user);
-            setLoading(false);
 
             if (user) {
                 const docRef = doc(db, 'users', user.uid);
@@ -48,16 +49,42 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     setUserName(null);
                     setRole(null);
                 }
+                setLoading(false);
             } else {
                 setUserProfile(null);
                 setUserName(null);
                 setRole(null);
+                setLoading(false);
             }
         });
 
         return unsubscribe;
     }, []);
 
+    const fetchUser = async () => {
+        if (!currentUser) return;
+        setLoading(true)
+
+        const docRef = doc(db, 'users', currentUser.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const userData = docSnap.data() as User;
+            setUserProfile(userData);
+            setUserName(`${userData.firstName || ''} ${userData.lastName || ''}`.trim() || null);
+            setRole(userData.role || null);
+        } else {
+            setUserProfile(null);
+            setUserName(null);
+            setRole(null);
+        }
+        setLoading(false)
+    };
+
+    const fetchUsers = async (): Promise<User[]> => {
+        const snapshot = await getDocs(collection(db, 'users'));
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as User[];
+    };
 
     const login = async (email: string, password: string) => {
         try {
@@ -66,7 +93,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch (err: any) {
             setError(err.message);
             console.error('Login error in useAuth:', err);
-            throw err; // Re-throw so Login component can handle it
+            throw err;
         }
     }
 
@@ -104,6 +131,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch (err: any) {
             if (err.code === 'auth/requires-recent-login') {
                 console.error('You need to re-login to delete your account.');
+                throw err;
             } else {
                 console.error('Error deleting user:', err.message);
                 throw err;
@@ -112,7 +140,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     return (
-        <AuthContext.Provider value={{ currentUser, loading, role, userName, userProfile, login, logout, signUp, deleteProfile }}>
+        <AuthContext.Provider value={{ currentUser, loading, role, userName, userProfile, fetchUser, fetchUsers, login, logout, signUp, deleteProfile }}>
             {children}
         </AuthContext.Provider>
     );

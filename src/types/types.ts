@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface Product {
   id: string;
   title: string;
@@ -24,4 +26,15 @@ export interface User {
   role?: string;
 }
 
-//defines types used across components
+export interface Order {
+    id: string;
+    userId: string;
+    products: {
+        productId: string;
+        title: string;
+        price: number;
+        quantity: number;
+    }[];
+    totalPrice: number;
+    createdAt: Timestamp
+}

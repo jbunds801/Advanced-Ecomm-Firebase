@@ -22,8 +22,8 @@ const DeleteProfile: React.FC = () => {
         try {
             await deleteProfile();
             alert('Profile deleted successfully');
-        } catch (error) {
-            alert('Error deleting profile:' + error);
+        } catch (err: any) {
+            alert('Error deleting profile:' + err.message);
         }
     }
 
