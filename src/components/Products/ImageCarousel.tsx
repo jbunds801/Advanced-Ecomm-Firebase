@@ -11,6 +11,7 @@ const ImageCarousel: React.FC = () => {
     if (error) return <div>Error loading images: {error}</div>;
     if (!products || products.length === 0) return <div>No images available</div>;
 
+    
     return (
         <>
             <Container fluid className="d-flex justify-content-center px-4">

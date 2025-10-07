@@ -5,68 +5,55 @@ import { useOrders } from '../../firebase/useOrders';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const ViewOrders: React.FC = () => {
-    const { auth } = useAuth;
-    const { products } = useProducts;
-    const { orders } = useOrders;
+    const { currentUser } = useAuth();
+    const { products } = useProducts();
+    const { orders, loading, error } = useOrders();
 
-
+    if (loading) return <div>Loading orders...</div>;
+    if (error) return <div>Error loading orders: {error}</div>;
+    if (!currentUser) return <div>Please log in to view orders</div>;
+    if (!orders || orders.length === 0) return <div>No orders found</div>;
 
     return (
         <>
             <Container>
                 {orders.map((order) => (
-                    <Row className='m-5' key={order.id}>
-                        <Col md={3} lg={3} sm={6} className='d-flex justify-content-center'>
-                            <img style={{ width: '6rem', minHeight: 150, maxHeight: 150, objectFit: 'contain' }}
-                                src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
-                                alt={`image of ${product.title}`} />
-                        </Col>
-                        <Col className='my-auto' sm={6} md={4} lg={5} >
-                            <h5>{product.title}</h5>
-                            <p>${product.price.toFixed(2)}</p>
-                        </Col>
-                        {/* <Col className='m-auto me-1' sm={6} md={1}>
-                        <p className='text-info text-center'>Quantity</p>
-                        <div className='d-flex flex-nowrap justify-content-center align-items-center'>
-                            <Button className='m-1' variant='outline-none text-info'
-                                onClick={() => dispatch(decreaseQuantity(product))}>-</Button>
-                            <span>{product.quantity ?? + 1}</span>
-                            <Button className='m-1' variant='outline-none text-info'
-                                onClick={() => dispatch(increaseQuantity(product))}>+</Button>
-                        </div>
-                    </Col> */}
-                        <Row>
-                            <Col>
-                                {/* <UpdateProduct /> */}
-                            </Col>
-                            <Col className='d-flex justify-content-end'>
-                                <DeleteProduct product={product} />
+                    <div key={order.id}>
+                        <Row className='mt-5 text-danger justify-content-center justify-content-sm-end'>
+                            <Col xs={8} sm={6} md={6} lg={6}>
+                                <h6>Order # {order.id}</h6>
                             </Col>
                         </Row>
-                    </Row>
+                        {order.products.map((orderProduct, index) => {
+                            const product = products.find(product => product.id === orderProduct.productId);
+                            if (!product) return null;
+                            return (
+                                <Row className='mx-5 my-sm-none my-3 d-flex align-items-center' key={`${order.id}-${index}`}>
+                                    <Col xs={12} sm={2} md={2} lg={1} className='d-flex justify-content-center'>
+                                        <img style={{ width: '100%', minHeight: 75, maxHeight: 75, objectFit: 'contain' }}
+                                            src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
+                                            alt={`image of ${product.title}`} />
+                                    </Col>
+                                    <Col xs={12}sm={4} md={4} lg={5}>
+                                        <p style={{ fontSize: '.85rem' }}>{orderProduct.title}</p>
+                                    </Col>
+                                    <Col xs={6} sm={3} md={3} lg={1}>
+                                        <p style={{ fontSize: '.85rem' }}>${orderProduct.price.toFixed(2)}</p>
+                                    </Col>
+                                    <Col xs={6} sm={3} md={3} lg={2}>
+                                        <p style={{ fontSize: '.85rem' }}>Quantity: {orderProduct.quantity}</p>
+                                    </Col>
+                                </Row>
+                            );
+                        })}
+                        <Row className='justify-content-center justify-content-sm-end text-info'>
+                            <Col className='d-flex gap-sm-5 gap-3 mt-1 mb-5' xs={8} sm={6} md={6} lg={6}>
+                                <h6>Total Items: {order.products.reduce((sum, p) => sum + (p.quantity || 0), 0)}</h6>
+                                <h6>Total: ${order.totalPrice}</h6>
+                            </Col>
+                        </Row>
+                    </div>
                 ))}
-                
-
-                {/* <Row>
-                <Col className='d-flex justify-content-end' lg={10}>
-                    <div className='d-flex flex-column align-items-end me-5 mb-5'>
-                        <p className='mb-2'>Total Items: {totalItems}</p>
-                        <p className='mb-0'>Total Price: ${totalPrice.toFixed(2)}</p>
-                    </div>
-                </Col>
-            </Row>
-            <Row className='mb-5'>
-                <Col sm={7} md={8} lg={6} xl={6}>
-                    <div className='d-flex justify-content-center mt-2 me-5'>
-                        <Button className='d-none d-sm-block' variant='outline-none text-danger' onClick={() => dispatch(clearCart())}>Clear Cart</Button>
-                    </div>
-                </Col>
-                <Col xs={12} sm={5} md={4} lg={6} xl={6}>
-                    <div className='d-flex justify-content-center'>
-                        <CheckoutButton onSuccess={() => setCheckoutComplete(true)} />
-                    </div>
-                </Col>
-            </Row> */}
             </Container>
         </>
     );

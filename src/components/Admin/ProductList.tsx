@@ -24,7 +24,7 @@ const ProductList: React.FC = () => {
 
 
                             <Col sm={5} md={5} lg={3} className='d-flex justify-content-center'>
-                                <img style={{ width: '6rem', minHeight: 150, maxHeight: 150, objectFit: 'contain' }}
+                                <img style={{ width: '100%', minHeight: 150, maxHeight: 150, objectFit: 'contain' }}
                                     src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
                                     alt={`image of ${product.title}`} />
                             </Col>
@@ -67,4 +67,4 @@ const ProductList: React.FC = () => {
 export default ProductList;
 
 
-//add logic to change quantity
+//add logic to change quantity later

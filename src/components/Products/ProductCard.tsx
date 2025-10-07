@@ -44,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ products }) => {
                                     }}
                                 >
                                     <div className='d-flex justify-content-center'>
-                                        <img style={{ width: '14rem', minHeight: 250, maxHeight: 250, objectFit: 'contain' }}
+                                        <img style={{ width: '100%', minHeight: 250, maxHeight: 250, objectFit: 'contain' }}
                                             src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
                                             alt={`image of ${product.title}`}
                                         />

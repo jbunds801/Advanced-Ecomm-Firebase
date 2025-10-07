@@ -82,3 +82,5 @@ const SignUp: React.FC = () => {
 };
 
 export default SignUp;
+
+//create logic that assigns the role automatically when users sign up later

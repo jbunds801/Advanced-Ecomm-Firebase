@@ -30,13 +30,13 @@ const CartItems: React.FC = () => {
         );
     }
 
-    //quantity counter using dispatch and reducers below, imports CheckoutButton to simulate checkout
+    
     return (
         <Container>
             {cartItems.map((product, index) => (
                 <Row className='m-2 m-lg-5' key={index}>
                     <Col md={3} lg={3} sm={6} className='d-flex justify-content-center'>
-                        <img style={{ width: '6rem', minHeight: 150, maxHeight: 150, objectFit: 'contain' }}
+                        <img style={{ width: '100%', minHeight: 150, maxHeight: 150, objectFit: 'contain' }}
                             src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
                             alt={`image of ${product.title}`} />
                     </Col>

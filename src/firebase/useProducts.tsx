@@ -78,6 +78,3 @@ export const useProducts = () => {
     if (!context) throw new Error("useProducts must be used within a ProductsProvider");
     return context;
 }
-
-//use this in components:
-//const { products, loading, error, fetchProducts, addProduct, updateProduct, deleteProduct } = useProducts();

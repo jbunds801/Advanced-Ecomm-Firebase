@@ -11,9 +11,10 @@ type DetailModalProps = {
     onHide: () => void
 }
 
-//modal uses React Star ratings to show stars using rating data from API
 const DetailModal: React.FC<DetailModalProps> = ({ product, show, onHide }) => {
+    
     if (!product) return null
+
 
     return (
         <>
@@ -24,7 +25,8 @@ const DetailModal: React.FC<DetailModalProps> = ({ product, show, onHide }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="mx-auto d-flex flex-column align-items-center p-4">
-                        <img className='img-fluid mx-auto p-4'
+                        <img className='img-fluid mx-auto p-4' 
+                            style={{ width: '100%', minHeight: 150, maxHeight: 500, objectFit: 'contain' }}
                             src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
                             alt={product.title}
                         />
