@@ -17,16 +17,15 @@ const UpdateProfile: React.FC = () => {
     const { currentUser, userProfile, fetchUser } = useAuth();
 
     useEffect(() => {
-        fetchUser();
-    }, [currentUser, fetchUser]);
 
-    useEffect(() => {
-        if (userProfile && !firstName && !lastName && !email) {
+        if (userProfile) {
             setFirstName(userProfile.firstName || '');
             setLastName(userProfile.lastName || '');
             setEmail(userProfile.email || '');
+            setPassword('');
+            setConfirmPassword('');
         }
-    }, [userProfile, firstName, lastName, email]);
+    }, [userProfile]);
 
 
     const handleUpdate = async (e: FormEvent) => {
@@ -56,7 +55,7 @@ const UpdateProfile: React.FC = () => {
             });
             await fetchUser();
             alert('Profile updated successfully!');
-        } catch (err: any) {
+        } catch (err: unknown) {
             alert('Error updating profile');
             console.error(err);
         }
@@ -65,7 +64,7 @@ const UpdateProfile: React.FC = () => {
 
     return (
         <>
-            <Card className='form-card-update my-5 mx-auto'
+            <Card className='form-card-profile my-5 mx-auto'
                 data-bs-theme="dark"
                 style={{
                     maxWidth: '25rem',

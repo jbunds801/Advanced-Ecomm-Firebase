@@ -10,15 +10,13 @@ const AddProduct: React.FC = () => {
     const [category, setCategory] = useState<string>('');
     const [image, setImage] = useState<string>('');
     const [rating, setRating] = useState<number>(0);
-    const [error, setError] = useState<string | null>(null);
     const { addProduct } = useProducts();
 
     const handleAddProduct = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError(null);
 
         if (!title || !price || !description || !category || !image) {
-            setError('Please fill out required fields');
+            alert('Please fill out all fields')
             return;
         }
 
@@ -46,9 +44,15 @@ const AddProduct: React.FC = () => {
     return (
         <>
             <div>
-                <h2>Add Product</h2>
-                <Card className='form-card my-5 mx-auto'
-                    data-bs-theme="dark">
+                <Card className='form-card-product my-5 mx-auto'
+                    data-bs-theme="dark"
+                    style={{
+                        maxWidth: '25rem',
+                        minWidth: '25rem',
+                        maxHeight: '31rem',
+                        minHeight: '31rem',
+                    }}
+                >
                     <Card.Body>
                         <Card.Title className='text-center mb-4'>Add Product</Card.Title>
                         <Form onSubmit={handleAddProduct}>
@@ -106,7 +110,6 @@ const AddProduct: React.FC = () => {
                                 <div className='d-flex justify-content-center'>
                                     <Button className='mb-2' variant='outline-info' type='submit'>Add Product</Button>
                                 </div>
-                                {error && <p className='text-center mt-2 text-info'>{error}</p>}
                             </Form.Group>
                         </Form>
                     </Card.Body>

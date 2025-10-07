@@ -26,8 +26,8 @@ const UserDashboard: React.FC = () => {
                             <Button className='text-nowrap' variant="outline-info">View Orders</Button>
                         </Col>
                         <Col className="my-5" sm={6} md={3}>
-                            <Button className='text-nowrap' variant="outline-info" onClick={() => setShowUpdate(!showUpdate)}>
-                                {showUpdate ? 'Close Update Form' : 'Update Profile'}
+                            <Button variant="outline-info" onClick={() => setShowUpdate(!showUpdate)}>
+                                {showUpdate ? 'Close Form' : 'Update Profile'}
                             </Button>
                             <Col className='d-flex justify-content-center'>
                                 {showUpdate && <UpdateProfile />}

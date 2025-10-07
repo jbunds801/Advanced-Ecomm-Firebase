@@ -11,7 +11,7 @@ interface OrdersContextType {
     loading: boolean;
     error: string | null;
     fetchOrders: (userId?: string) => Promise<void>;
-    createOrder: (order: Omit<Order, 'id'>) => Promise<void>;
+    createOrder: (order: Omit<Order, 'id' | 'createdAt'>) => Promise<void>;
     deleteOrder: (id: string) => Promise<void>;
 }
 
@@ -63,7 +63,7 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }
     };
 
-    const createOrder = async (order: Omit<Order, 'id'>) => {
+    const createOrder = async (order: Omit<Order, 'id' | 'createdAt'>) => {
         try {
             const orderWithDate = { ...order, createdAt: Timestamp.now() };
             await addDoc(collection(db, 'orders'), orderWithDate);
@@ -72,7 +72,7 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ childr
                 await fetchOrders(order.userId);
             }
 
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Error creating order:', err);
             throw err;
         }
@@ -82,7 +82,7 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         try {
             await deleteDoc(doc(db, 'orders', id));
             if (currentUser) await fetchOrders(currentUser.uid);
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Error deleting order:', err);
             throw err;
         }

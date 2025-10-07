@@ -27,7 +27,7 @@ const NavBar: React.FC = () => {
     return (
         <>
             <div>
-                <Navbar fixed='top' expand="sm" data-bs-theme="dark" className="nav-bar p-3 mb-4">
+                <Navbar fixed='top' expand="md" data-bs-theme="dark" className="nav-bar p-3 mb-4">
                     <div className="container-fluid mx-3">
                         <Navbar.Brand className='nav-brand pb-3' href="/">Ecomm Store</Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useProducts } from '../../firebase/useProducts';
-import { Row, Col, Container } from 'react-bootstrap';
 import DeleteProduct from './DeleteProduct';
-import AddProduct from './AddProduct';
+import UpdateProduct from './UpdateProduct';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 
 
 const ProductList: React.FC = () => {
+    const [showUpdateId, setShowUpdateId] = useState<string | null>(null)
+
     const { products, loading, error } = useProducts();
 
     if (loading) return <div>Loading...</div>;
@@ -15,63 +17,54 @@ const ProductList: React.FC = () => {
 
     return (
         <>
-            <Container>
+            <Container className='mt-5 m-lg-none'>
                 {products.map((product) => (
-                    <Row className='m-5' key={product.id}>
-                        <Col md={3} lg={3} sm={6} className='d-flex justify-content-center'>
-                            <img style={{ width: '6rem', minHeight: 150, maxHeight: 150, objectFit: 'contain' }}
-                                src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
-                                alt={`image of ${product.title}`} />
-                        </Col>
-                        <Col className='my-auto' sm={6} md={4} lg={5} >
-                            <h5>{product.title}</h5>
-                            <p>${product.price.toFixed(2)}</p>
-                        </Col>
-                        {/* <Col className='m-auto me-1' sm={6} md={1}>
-                        <p className='text-info text-center'>Quantity</p>
-                        <div className='d-flex flex-nowrap justify-content-center align-items-center'>
-                            <Button className='m-1' variant='outline-none text-info'
-                                onClick={() => dispatch(decreaseQuantity(product))}>-</Button>
-                            <span>{product.quantity ?? + 1}</span>
-                            <Button className='m-1' variant='outline-none text-info'
-                                onClick={() => dispatch(increaseQuantity(product))}>+</Button>
-                        </div>
-                    </Col> */}
-                        <Row>
-                            <Col>
-                                {/* <UpdateProduct /> */}
+                    <div key={product.id}>
+                        <Row className='m-2 m-lg-5'>
+
+
+                            <Col sm={5} md={5} lg={3} className='d-flex justify-content-center'>
+                                <img style={{ width: '6rem', minHeight: 150, maxHeight: 150, objectFit: 'contain' }}
+                                    src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
+                                    alt={`image of ${product.title}`} />
                             </Col>
-                            <Col className='d-flex justify-content-end'>
-                                <DeleteProduct product={product} />
+
+
+                            <Col className='my-auto mt-4' sm={6} md={6} lg={5} >
+                                <h5>{product.title}</h5>
+                                <p>${product.price.toFixed(2)}</p>
+                            </Col>
+
+
+                            <Col className='d-flex flex-row-reverse flex-lg-column align-items-center
+                                    justify-content-center m-2 gap-3 gap-lg-5 mb-5 mx-auto' md={6} lg={3}>
+                                <div>
+                                    <DeleteProduct product={product} />
+                                </div>
+                                <div>
+                                    <Button variant="outline-info" className='btn-md btn-xs-sm'
+                                        onClick={() => setShowUpdateId(showUpdateId === product.id ? null : product.id)}>
+                                        {showUpdateId === product.id ? 'Close Form' : 'Update Product'}
+                                    </Button>
+                                </div>
                             </Col>
                         </Row>
-                    </Row>
-                ))}
-                <AddProduct />
 
-                {/* <Row>
-                <Col className='d-flex justify-content-end' lg={10}>
-                    <div className='d-flex flex-column align-items-end me-5 mb-5'>
-                        <p className='mb-2'>Total Items: {totalItems}</p>
-                        <p className='mb-0'>Total Price: ${totalPrice.toFixed(2)}</p>
+                        {showUpdateId === product.id && (
+                            <Row className='mx-5 mb-4'>
+                                <Col className='d-flex justify-content-center'>
+                                    <UpdateProduct product={product} />
+                                </Col>
+                            </Row>
+                        )}
                     </div>
-                </Col>
-            </Row>
-            <Row className='mb-5'>
-                <Col sm={7} md={8} lg={6} xl={6}>
-                    <div className='d-flex justify-content-center mt-2 me-5'>
-                        <Button className='d-none d-sm-block' variant='outline-none text-danger' onClick={() => dispatch(clearCart())}>Clear Cart</Button>
-                    </div>
-                </Col>
-                <Col xs={12} sm={5} md={4} lg={6} xl={6}>
-                    <div className='d-flex justify-content-center'>
-                        <CheckoutButton onSuccess={() => setCheckoutComplete(true)} />
-                    </div>
-                </Col>
-            </Row> */}
+                ))}
             </Container>
         </>
     );
 };
 
 export default ProductList;
+
+
+//add logic to change quantity

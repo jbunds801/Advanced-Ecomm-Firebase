@@ -15,7 +15,6 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product }) => {
     const [category, setCategory] = useState<string>('');
     const [image, setImage] = useState<string>('');
     const [rating, setRating] = useState<number | null>(null);
-    const [error, setError] = useState<string | null>(null);
 
     const { updateProduct, fetchProducts } = useProducts();
 
@@ -44,16 +43,23 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product }) => {
             });
             alert('Product updated successfully!');
             fetchProducts();
-        } catch (err: any) {
-            alert('Error updating product')
+        } catch (err: unknown) {
+            alert('Error updating product');
             console.error(err);
         }
     }
 
     return (
         <>
-            <Card className='my-5 mx-auto'
-                data-bs-theme='dark'>
+            <Card className='form-card-product my-5 mx-auto'
+                data-bs-theme='dark'
+                style={{
+                    maxWidth: '25rem',
+                    minWidth: '25rem',
+                    maxHeight: '31rem',
+                    minHeight: '31rem',
+                }}
+            >
                 <Card.Body>
                     <Card.Title className='text-center mb-4'>Update Product</Card.Title>
                     <Form onSubmit={handleUpdateProduct}>

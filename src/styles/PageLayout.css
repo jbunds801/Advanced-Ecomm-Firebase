@@ -29,3 +29,7 @@ p,
 span {
   font-weight: lighter;
 }
+
+*button:active {
+  transform: translateY(1px);
+}
