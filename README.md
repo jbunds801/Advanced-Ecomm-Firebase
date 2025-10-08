@@ -1,6 +1,6 @@
 # Advanced Ecommerce Store using React, TypeScript, and Redux, and Firestore/Firebase.
 
-This project builds on the previous project, "Advanced Ecomm Store", but focuses on use Firebase for authentication and replaced the Fakestore API with my Firestore database.
+This project builds on the previous project, "Advanced Ecomm Store", but focuses on use Firebase for authentication and replaced the Fakestore API with my Firestore database. Created custom hooks and mplemented Error handling with try/catch blocks.
 
 ## Key features 
 
