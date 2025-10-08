@@ -16,7 +16,6 @@ This project builds on the previous project, "Advanced Ecomm Store", but focuses
 -Styling is simple and clean, yet attractive.
 -Used Bootstraps Container, Flexbox, and other Bootstrap classes to make all pages and components responsive.
 -Separate components for things that are used in different places, including the Add To Cart button, Check Out button, and the Category Selector function to keep code clean and organized.
--Deployed on Netlify - https://gear-galore-jbunds.netlify.app/
 
 # How to run this application in VSCode:
 

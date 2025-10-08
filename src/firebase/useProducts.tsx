@@ -37,8 +37,9 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const addProduct = async (product: Omit<Product, 'id'>) => {
         try {
             await addDoc(collection(db, 'products'), product);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             console.error('Error adding product:', err);
             throw err;
         }
@@ -48,8 +49,9 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         try {
             const productRef = doc(db, 'products', id);
             await updateDoc(productRef, updateData);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             console.error('Error updating product', err);
             throw err;
         }
@@ -58,8 +60,9 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const deleteProduct = async (id: string) => {
         try {
             await deleteDoc(doc(db, 'products', id));
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             console.error('Error deleting product:', err);
             throw err;
         }
