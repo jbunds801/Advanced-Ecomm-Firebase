@@ -9,6 +9,7 @@ import type { User } from '../types/types';
 interface AuthContextType {
     currentUser: FirebaseUser | null;
     loading: boolean;
+    error: string | null;
     userName: string | null;
     userProfile: User | null;
     role?: string | null;
@@ -90,8 +91,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             await signInWithEmailAndPassword(auth, email, password);
             console.log('Login successful in useAuth');
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             console.error('Login error in useAuth:', err);
             throw err;
         }
@@ -108,8 +110,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 createdAt: new Date()
             });
             console.log('SignUp successful in useAuth');
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             console.error('SignUp error in useAuth:', err);
             throw err;
         }
@@ -118,8 +121,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const logout = async () => {
         try {
             await signOut(auth);
-        } catch (err: any) {
-            console.error("Logout error:", err.message);
+        } catch (err: unknown) {
+            console.error("Logout error:", err instanceof Error ? err.message : 'An error occurred');
         }
     }
 
@@ -128,19 +131,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             await deleteDoc(doc(db, 'users', currentUser.uid));
             await deleteUser(currentUser);
-        } catch (err: any) {
-            if (err.code === 'auth/requires-recent-login') {
+        } catch (err: unknown) {
+            if (err instanceof Error && 'code' in err && err.code === 'auth/requires-recent-login') {
                 console.error('You need to re-login to delete your account.');
                 throw err;
             } else {
-                console.error('Error deleting user:', err.message);
+                console.error('Error deleting user:', err instanceof Error ? err.message : 'An error occurred');
                 throw err;
             }
         }
     }
 
     return (
-        <AuthContext.Provider value={{ currentUser, loading, role, userName, userProfile, fetchUser, fetchUsers, login, logout, signUp, deleteProfile }}>
+        <AuthContext.Provider value={{ currentUser, loading, error, role, userName, userProfile, fetchUser, fetchUsers, login, logout, signUp, deleteProfile }}>
             {children}
         </AuthContext.Provider>
     );

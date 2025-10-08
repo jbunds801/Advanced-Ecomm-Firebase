@@ -55,7 +55,9 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             })) as Order[];
 
             setOrders(fetchedOrders);
-        } catch (err) {
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             console.error('Error fetching orders:', err);
             throw err;
         } finally {
@@ -73,6 +75,8 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             }
 
         } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             console.error('Error creating order:', err);
             throw err;
         }
@@ -83,6 +87,8 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             await deleteDoc(doc(db, 'orders', id));
             if (currentUser) await fetchOrders(currentUser.uid);
         } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             console.error('Error deleting order:', err);
             throw err;
         }
