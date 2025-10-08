@@ -14,6 +14,7 @@ const ViewOrders: React.FC = () => {
     if (!currentUser) return <div>Please log in to view orders</div>;
     if (!orders || orders.length === 0) return <div>No orders found</div>;
 
+
     return (
         <>
             <Container>
@@ -22,6 +23,9 @@ const ViewOrders: React.FC = () => {
                         <Row className='mt-5 text-danger justify-content-center justify-content-sm-end'>
                             <Col xs={8} sm={6} md={6} lg={6}>
                                 <h6>Order # {order.id}</h6>
+                                <p className=''
+                                style={{ fontSize: '.85rem' }}>
+                                    {order.createdAt.toDate().toLocaleDateString()}</p>
                             </Col>
                         </Row>
                         {order.products.map((orderProduct, index) => {
