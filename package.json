@@ -1,5 +1,5 @@
 {
-  "name": "advanced-ecomm-firebase",
+  "name": "advanced-ecommerce-store",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -49,16 +49,13 @@
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
   },
-    "jest": {
+  "jest": {
     "testEnvironment": "jest-environment-jsdom",
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom"
     ],
     "transform": {
       "^.+\\.[jt]sx?$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/fileMock.js"
     }
   }
 }
