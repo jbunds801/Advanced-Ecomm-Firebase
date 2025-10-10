@@ -37,7 +37,7 @@ const CartItems: React.FC = () => {
                 <Row className='m-2 m-lg-5' key={index}>
                     <Col md={3} lg={3} sm={6} className='d-flex justify-content-center'>
                         <img style={{ width: '100%', minHeight: 150, maxHeight: 150, objectFit: 'contain' }}
-                            src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
+                            src={`/src/assets/images/${product.image}`}
                             alt={`image of ${product.title}`} />
                     </Col>
                     <Col className='my-auto' sm={6} md={4} lg={5} >

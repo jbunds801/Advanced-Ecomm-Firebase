@@ -22,7 +22,7 @@ const ImageCarousel: React.FC = () => {
                                 <img
                                     className='d-block mx-auto img-fluid'
                                     style={{ maxHeight: '600px' }}
-                                    src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
+                                    src={`/src/assets/images/${product.image}`}
                                     alt={`slide image of ${product.title}`}
 
                                 />

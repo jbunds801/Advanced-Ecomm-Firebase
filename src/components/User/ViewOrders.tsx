@@ -35,7 +35,7 @@ const ViewOrders: React.FC = () => {
                                 <Row className='mx-5 my-sm-none my-3 d-flex align-items-center' key={`${order.id}-${index}`}>
                                     <Col xs={12} sm={2} md={2} lg={1} className='d-flex justify-content-center'>
                                         <img style={{ width: '100%', minHeight: 75, maxHeight: 75, objectFit: 'contain' }}
-                                            src={new URL(`../../assets/images/${product.image}`, import.meta.url).href}
+                                            src={`/src/assets/images/${product.image}`}
                                             alt={`image of ${product.title}`} />
                                     </Col>
                                     <Col xs={12}sm={4} md={4} lg={5}>
