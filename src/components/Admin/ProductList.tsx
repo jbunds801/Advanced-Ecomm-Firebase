@@ -25,7 +25,7 @@ const ProductList: React.FC = () => {
 
                             <Col sm={5} md={5} lg={3} className='d-flex justify-content-center'>
                                 <img style={{ width: '100%', minHeight: 150, maxHeight: 150, objectFit: 'contain' }}
-                                    src={`/src/assets/images/${product.image}`}
+                                    src={`/${product.image}`}
                                     alt={`image of ${product.title}`} />
                             </Col>
 

@@ -27,7 +27,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ product, show, onHide }) => {
                     <div className="mx-auto d-flex flex-column align-items-center p-4">
                         <img className='img-fluid mx-auto p-4' 
                             style={{ width: '100%', minHeight: 150, maxHeight: 500, objectFit: 'contain' }}
-                            src={`/src/assets/images/${product.image}`}
+                            src={`/${product.image}`}
                             alt={product.title}
                         />
                         <p className='pt-1 fs-5'>Price: ${product.price.toFixed(2)}</p>
