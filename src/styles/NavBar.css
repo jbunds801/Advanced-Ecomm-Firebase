@@ -1,6 +1,6 @@
 @font-face {
   font-family: Scriptina;
-  src: url("../assets/fonts/SCRIPTIN.ttf") format("truetype");
+  src: url("../../public/SCRIPTIN.ttf") format("truetype");
 }
 
 .nav-bar {
