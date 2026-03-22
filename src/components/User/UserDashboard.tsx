@@ -7,7 +7,6 @@ import DeleteProfile from '../../components/User/DeleteProfile';
 import ViewOrders from './ViewOrders';
 
 
-
 const UserDashboard: React.FC = () => {
     const [showViewOrders, setShowViewOrders] = useState<boolean>(false);
     const [showUpdate, setShowUpdate] = useState<boolean>(false);

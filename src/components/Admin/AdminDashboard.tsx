@@ -5,7 +5,6 @@ import { Container, Button, Row, Col } from 'react-bootstrap';
 import AddProduct from './AddProduct';
 
 const AdminDashboard: React.FC = () => {
-    //const [showUpdate, setShowUpdate] = useState<boolean>(false)
     const { /* userName, */ loading } = useAuth();
     const [showProductList, setShowProductList] = useState<boolean>(false);
     const [showAddProduct, setShowAddProduct] = useState<boolean>(false);

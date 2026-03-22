@@ -2,7 +2,7 @@ import { Navbar, Nav, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../styles/NavBar.css'
 import { useSelector } from 'react-redux';
-import type { RootState } from '../redux/store'; // Adjust the path if your store file is elsewhere
+import type { RootState } from '../redux/store';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../firebase/useAuth';
 
