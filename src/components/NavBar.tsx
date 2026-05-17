@@ -1,5 +1,5 @@
 import { Navbar, Nav, Badge } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../styles/NavBar.css'
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
@@ -53,31 +53,31 @@ const NavBar: React.FC = () => {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse>
                             <Nav defaultActiveKey="/home">
-                                <Nav.Link className='nav-link' as={Link} to="/" onClick={() => setExpanded(false)}>
+                                <Nav.Link className='nav-link' as={NavLink} to="/" onClick={() => setExpanded(false)}>
                                     Home
                                 </Nav.Link>
-                                <Nav.Link className='nav-link' as={Link} to="/products" onClick={() => setExpanded(false)}>
+                                <Nav.Link className='nav-link' as={NavLink} to="/products" onClick={() => setExpanded(false)}>
                                     Products
                                 </Nav.Link>
-                                <Nav.Link className='nav-link' as={Link} to="/about" onClick={() => setExpanded(false)}>
+                                <Nav.Link className='nav-link' as={NavLink} to="/about" onClick={() => setExpanded(false)}>
                                     About
                                 </Nav.Link>
                                 {!currentUser ? (
-                                    <Nav.Link className='nav-link' as={Link} to="/profile" onClick={() => setExpanded(false)}>
+                                    <Nav.Link className='nav-link' as={NavLink} to="/profile" onClick={() => setExpanded(false)}>
                                         Login/Sign Up
                                     </Nav.Link>
                                 ) : (
-                                    <Nav.Link className='nav-link' as={Link} to="/profile" onClick={() => setExpanded(false)}>
+                                    <Nav.Link className='nav-link' as={NavLink} to="/profile" onClick={() => setExpanded(false)}>
                                         Profile
                                     </Nav.Link>
                                 )}
                                 {currentUser && role === 'admin' ? (
-                                    <Nav.Link className='nav-link' as={Link} to="/admin" onClick={() => setExpanded(false)}>
+                                    <Nav.Link className='nav-link' as={NavLink} to="/admin" onClick={() => setExpanded(false)}>
                                         Admin
                                     </Nav.Link>
                                 ) : undefined
                                 }
-                                <Nav.Link className='nav-link' as={Link} to="/cart" onClick={() => setExpanded(false)}>
+                                <Nav.Link className='nav-link' as={NavLink} to="/cart" onClick={() => setExpanded(false)}>
                                     Cart
                                     {cartItems.length > 0 && (
                                         <>
