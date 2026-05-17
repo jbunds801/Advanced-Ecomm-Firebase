@@ -30,6 +30,6 @@ span {
   font-weight: lighter;
 }
 
-*button:active {
-  transform: translateY(1px);
+button:active {
+  transform: scale(0.94);
 }

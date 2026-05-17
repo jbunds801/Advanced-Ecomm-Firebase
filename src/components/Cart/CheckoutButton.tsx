@@ -27,8 +27,13 @@ const CheckoutButton: React.FC<CheckoutButtonProps> = ({ onSuccess }) => {
 
         try {
             const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * (item.quantity ?? 1)), 0);
+            if (!currentUser.email) {
+                alert('No email found for this account');
+                return;
+            }
             const orderData = {
                 userId: currentUser.uid,
+                email: currentUser.email,
                 products: cartItems.map(item => ({
                     productId: item.id,
                     title: item.title,

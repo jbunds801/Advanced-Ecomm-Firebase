@@ -29,6 +29,7 @@ export interface User {
 export interface Order {
     id: string;
     userId: string;
+    email: string;
     products: {
         productId: string;
         title: string;
@@ -36,5 +37,5 @@ export interface Order {
         quantity: number;
     }[];
     totalPrice: number;
-    createdAt: Timestamp
+    createdAt: Timestamp;
 }
